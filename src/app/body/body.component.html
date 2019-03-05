@@ -1,8 +1,8 @@
-<div class="container-lg">
+<div class="container-fluid">
   <div class="row justify-content-end">
-    <button class="btn btn-success large m-2" (click)="createModal(create)"><i class="fa fa-plus" aria-hidden="true"></i> Cadastrar novo</button>
+    <button class="btn btn-success large m-3" (click)="createModal(add)"><i class="fa fa-plus" aria-hidden="true"></i> Cadastrar novo</button>
   </div>
-  <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions">
+  <table class="table table-striped table-bordered row-border hover" datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions">
       <thead>
         <tr>
           <th>Id</th>
@@ -10,9 +10,6 @@
           <th>Idade</th>
           <th>Contato</th>
           <th>Email</th>
-          <th>Linguagens</th>
-          <th>Frameworks</th>
-          <th>Redes Sociais</th>
           <th>Foto</th>
           <th>Ação</th>
         </tr>
@@ -24,33 +21,6 @@
               <td>{{lideres.idade}}</td>
               <td>{{lideres.contato}}</td>
               <td>{{lideres.email}}</td>
-              <td>
-                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Visualisar
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-                    <a class="dropdown-item" *ngFor="let linguagens of lideres.linguagens">{{linguagens}}</a>
-                  </div>
-                </div>
-            </td>
-            <td>
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Visualisar
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-                  <a class="dropdown-item" *ngFor="let frameworks of lideres.frameworks">{{frameworks}}</a>
-                </div>
-              </div>
-              </td>
-              <td *ngFor="let social of lideres.social">
-                <a class="btn p-1" href="{{social.facebook}}" target="blank" [hidden]="!social.facebook"><i class="fa fa-facebook-square fa-3x" aria-hidden="true"></i></a>
-                <a class="btn p-1" href="{{social.instagram}}" target="blank" [hidden]="!social.instagram"><i class="fa fa-instagram fa-3x" aria-hidden="true"></i></a>
-                <a class="btn p-1" href="{{social.twitter}}" target="blank" [hidden]="!social.twitter"><i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i></a>
-                <a class="btn p-1" href="{{social.github}}" target="blank" [hidden]="!social.github"><i class="fa fa-github fa-3x" aria-hidden="true"></i></a>
-                <a class="btn p-1" href="{{social.gitlab}}" target="blank" [hidden]="!social.gitlab"><i class="fa fa-gitlab fa-3x" aria-hidden="true"></i></a>     
-            </td>
             <td>
               <img class="img-fluid rounded-circle" width="80px" height="80px" [src]="lideres.foto" [hidden]="!lideres.foto" alt="{{lideres.nome}}">
             </td>
@@ -65,91 +35,143 @@
 
 <ng-template #edit>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Editar {{LideresModal.nome}}</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <h4 class="modal-title pull-left">Editar {{form.value.nome}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide(); form.reset()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="form">
-      <div class="form-group">
+    <form [formGroup]="form" (ngSubmit)="editar()">
+      <div class="form-group has-feedback">
         <label for="Nome">Nome</label>
-        <input formControlName="nome" type="text" class="form-control" id="Nome" placeholder="Digite seu nome">
+        <input formControlName="nome" 
+        type="text" 
+        class="form-control" 
+        id="Nome" 
+        placeholder="Digite seu nome">
+
+        <div *ngIf="form.get('nome').invalid && (form.get('nome').dirty || form.get('nome').touched)"
+        class="alert alert-danger">
+          <div *ngIf="form.get('nome').hasError('required')">
+            campo é Requerido
+          </div>
+        </div>
       </div>
-      <div class="form-group">
+      <div class="form-group has-feedback">
         <label for="Idade">Idade</label>
-        <input formControlName="idade"  type="text" class="form-control" id="Idade" placeholder="Digite sua idade">
+        <input formControlName="idade"  
+        type="number" 
+        class="form-control" 
+        id="Idade" 
+        placeholder="Digite sua idade">
+        <div *ngIf="form.get('idade').invalid && (form.get('idade').dirty || form.get('idade').touched)"
+        class="alert alert-danger">
+          <div *ngIf="form.get('idade').hasError('required')">
+            campo é Requerido
+          </div>
+        </div>
       </div>
-      <div class="form-group">
+      <div class="form-group has-feedback">
         <label for="Foto">Foto</label>
-        <input formControlName="foto"  type="text" class="form-control" id="Foto" placeholder="Digite a url da foto">
+        <input formControlName="foto" type="text" class="form-control" id="Foto" placeholder="Digite a url da foto">
       </div>
-      <div class="form-group">
+      <div class="form-group has-feedback">
         <label for="Contato">Contato</label>
-        <input formControlName="contato"  type="text" class="form-control" id="Contato" placeholder="Digite seu Whats">
+        <input formControlName="contato" type="text" class="form-control" id="Contato" placeholder="Digite seu Whats">
       </div>
-      <div class="form-group">
+      <div class="form-group has-feedback">
         <label for="Email">Email</label>
-        <input formControlName="email"  type="email" class="form-control" id="Email" placeholder="name@example.com">
-      </div>
-      <div class="form-group m-3" >
-        <div class="row justify-content-between">
-          <label>Linguagens</label>
-          <button class="btn btn-success" (click)="addLinguagens()"> <i class="fa fa-plus" aria-hidden="true"></i></button>
-        </div>
-        <div formArrayName="linguagens" *ngFor="let comp of linguagens.controls; let i = index">
-          <label for="i+1">Nome {{i+1}}</label>
-          <input formControlName="i+1"  type="text" class="form-control" id="i+1" placeholder="Digite o nome">
-          <button class="btn btn-danger m-2" (click)="deleteLinguagens(i)"><i class="fa fa-trash-o" aria-hidden="true"></i></button> 
-        </div>
-      </div>
-      <div class="form-group m-3" >
-        <div class="row justify-content-between">
-          <label>Framewoks</label>
-          <button class="btn btn-success" (click)="addFrameworks()"> <i class="fa fa-plus" aria-hidden="true"></i></button>
-        </div>
-        <div formArrayName="frameworks" *ngFor="let comp of frameworks.controls; let i = index">
-          <label for="i+1">Nome {{i+1}}</label>
-          <input formControlName="i+1"  type="text" class="form-control" id="i+1" placeholder="Digite o nome">
-          <button class="btn btn-danger m-2" (click)="deleteFrameworks(i)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>  
+        <input formControlName="email" 
+        type="email" 
+        class="form-control" 
+        id="Email" 
+        placeholder="name@example.com">
+        <div *ngIf="form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)"
+        class="alert alert-danger">
+          <div *ngIf="form.get('email').hasError('required')">
+            campo é Requerido
+          </div>
+          <div *ngIf="form.get('email').hasError('email')">
+            Email inválido
+          </div>
         </div>
       </div>
-      <div class="form-group">
-          <label for="Facebook">Facebook</label>
-          <input formControlName="contato"  type="text" class="form-control" id="Facebook" placeholder="Link Facebook">
-      </div>
-      <div class="form-group">
-        <label for="Instagram">Instagram</label>
-        <input formControlName="contato"  type="text" class="form-control" id="Instagram" placeholder="Link Instagram">
-      </div>
-      <div class="form-group">
-        <label for="Github">Github</label>
-        <input formControlName="contato"  type="text" class="form-control" id="Github" placeholder="Link Github">
-      </div>
-      <div class="form-group">
-        <label for="Twitter">Twitter</label>
-        <input formControlName="contato"  type="text" class="form-control" id="Twitter" placeholder="Link Twitter">
-      </div>
-      <div class="form-group">
-        <label for="Gitlab">Gitlab</label>
-        <input formControlName="contato"  type="text" class="form-control" id="Gitlab" placeholder="Link Gitlab">
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" (click)="modalRef.hide(); form.reset()">Fechar</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Salvar Alterações</button>
       </div>
     </form>
   </div>
-  <div class="modal-footer">
-    <button class="btn btn-secondary" (click)="modalRef.hide()">Fechar</button>
-    <button class="btn btn-primary" [disabled]="!form.valid">Salvar Alterações</button>
-  </div>
+  
 </ng-template>
 
-<ng-template #create>
+<ng-template #add>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Criar novo regitro</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide(); form.reset()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    This is a modal.
+    <form [formGroup]="form" (ngSubmit)="create()">
+      <div class="form-group has-feedback">
+        <label for="Nome">Nome</label>
+        <input formControlName="nome" 
+        type="text" 
+        class="form-control" 
+        id="Nome" 
+        placeholder="Digite seu nome">
+
+        <div *ngIf="form.get('nome').invalid && (form.get('nome').dirty || form.get('nome').touched)"
+        class="alert alert-danger">
+          <div *ngIf="form.get('nome').hasError('required')">
+            campo é Requerido
+          </div>
+        </div>
+      </div>
+      <div class="form-group has-feedback">
+        <label for="Idade">Idade</label>
+        <input formControlName="idade"  
+        type="number" 
+        class="form-control" 
+        id="Idade" 
+        placeholder="Digite sua idade">
+        <div *ngIf="form.get('idade').invalid && (form.get('idade').dirty || form.get('idade').touched)"
+        class="alert alert-danger">
+          <div *ngIf="form.get('idade').hasError('required')">
+            campo é Requerido
+          </div>
+        </div>
+      </div>
+      <div class="form-group has-feedback">
+        <label for="Foto">Foto</label>
+        <input formControlName="foto" type="text" class="form-control" id="Foto" placeholder="Digite a url da foto">
+      </div>
+      <div class="form-group has-feedback">
+        <label for="Contato">Contato</label>
+        <input formControlName="contato" type="text" class="form-control" id="Contato" placeholder="Digite seu Whats">
+      </div>
+      <div class="form-group has-feedback">
+        <label for="Email">Email</label>
+        <input formControlName="email" 
+        type="email" 
+        class="form-control" 
+        id="Email" 
+        placeholder="name@example.com">
+        <div *ngIf="form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)"
+        class="alert alert-danger">
+          <div *ngIf="form.get('email').hasError('required')">
+            campo é Requerido
+          </div>
+          <div *ngIf="form.get('email').hasError('email')">
+            Email inválido
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" (click)="modalRef.hide()">Fechar</button>
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Salvar Alterações</button>
+      </div>
+    </form>
   </div>
 </ng-template>

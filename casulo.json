@@ -1,123 +1,44 @@
 {
-  "lideres": [{
-      "id":"1",
-      "nome":"Ismael Alves",
+  "lideres": [
+    {
+      "id": "1",
+      "nome": "Ismael Alves",
       "idade": 21,
-      "foto":"https://instagram.fsdu4-1.fna.fbcdn.net/vp/c8b98e91f86bcc574aca99db9dbb1a4e/5D12E6F8/t51.2885-19/s150x150/41264228_2158931144358808_8873441376004472832_n.jpg?_nc_ht=instagram.fsdu4-1.fna.fbcdn.net",
-      "contato":"(085) 988523391",
-      "email":"cearaismael1997@gmail.com",
-      "linguagens":[
-          "typescript",
-          "php 7",
-          "javascript",
-          "dart",
-          "node"
-      ],
-      "frameworks":[
-          "angular",
-          "ionic",
-          "flutter",
-          "express",
-          "bootstrap",
-          "material desing",
-          "jsp"
-      ],
-      "social":[{
-          "facebook":"https://web.facebook.com/ismael.alves.ximenes",
-          "instagram":"https://www.instagram.com/ismael.alves.ximenes/?hl=pt-br",
-          "github":"https://github.com/ismaelalvesgit",
-          "twitter":"",
-          "gitlab":"https://gitlab.com/ismaelalveslab?nav_source=navbar"
-      }]
-  },{
-      "id":"2",
-      "nome":"Raquel Barra",
+      "foto": "https://instagram.fsdu4-1.fna.fbcdn.net/vp/c8b98e91f86bcc574aca99db9dbb1a4e/5D12E6F8/t51.2885-19/s150x150/41264228_2158931144358808_8873441376004472832_n.jpg?_nc_ht=instagram.fsdu4-1.fna.fbcdn.net",
+      "contato": "(085) 988523391",
+      "email": "cearaismael1997@gmail.com"
+    },
+    {
+      "id": "2",
+      "nome": "Raquel Barra",
       "idade": 21,
-      "foto":"",
-      "contato":"(085) 988523391",
-      "email":"cearaismael1997@gmail.com",
-      "linguagens":[
-          "typescript",
-          "php 7",
-          "javascript",
-          "dart",
-          "node"
-      ],
-      "frameworks":[
-          "angular",
-          "ionic",
-          "flutter",
-          "express",
-          "bootstrap",
-          "material desing",
-          "jsp"
-      ],
-      "social":[{
-          "facebook":"",
-          "instagram":"",
-          "github":"",
-          "twitter":"",
-          "gitlab":""
-      }]
-  },{
-      "id":"3",
-      "nome":"Carlos Eduardo",
+      "foto": "",
+      "contato": "(085) 988523391",
+      "email": "cearaismael1997@gmail.com"
+    },
+    {
+      "id": "3",
+      "nome": "Carlos Eduardo",
       "idade": 28,
-      "foto":"",
-      "contato":"(085) 988523391",
-      "email":"cearaismael1997@gmail.com",
-      "linguagens":[
-          "typescript",
-          "php 7",
-          "javascript",
-          "dart",
-          "node"
-      ],
-      "frameworks":[
-          "angular",
-          "ionic",
-          "flutter",
-          "express",
-          "bootstrap",
-          "material desing",
-          "jsp"
-      ],
-      "social":[{
-          "facebook":"",
-          "instagram":"",
-          "github":"",
-          "twitter":"",
-          "gitlab":""
-      }]
-  },{
-      "id":"4",
-      "nome":"Valdeci Rolim",
+      "foto": "",
+      "contato": "(085) 988523391",
+      "email": "cearaismael1997@gmail.com"
+    },
+    {
+      "id": "4",
+      "nome": "Valdeci Rolim",
       "idade": 21,
-      "foto":"",
-      "contato":"(085) 988523391",
-      "email":"cearaismael1997@gmail.com",
-      "linguagens":[
-          "typescript",
-          "php 7",
-          "javascript",
-          "dart",
-          "node"
-      ],
-      "frameworks":[
-          "angular",
-          "ionic",
-          "flutter",
-          "express",
-          "bootstrap",
-          "material desing",
-          "jsp"
-      ],
-      "social":[{
-          "facebook":"",
-          "instagram":"",
-          "github":"",
-          "twitter":"",
-          "gitlab":""
-      }]
-  }]
+      "foto": "",
+      "contato": "(085) 988523391",
+      "email": "cearaismael1997@gmail.com"
+    },
+    {
+      "id": "5",
+      "nome": "ismael",
+      "idade": 21,
+      "foto": "",
+      "contato": "(085) 988523391",
+      "email": "cearaismael1997@gmail.com"
+    }
+  ]
 }
