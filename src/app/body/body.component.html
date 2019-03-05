@@ -1,0 +1,155 @@
+<div class="container-lg">
+  <div class="row justify-content-end">
+    <button class="btn btn-success large m-2" (click)="createModal(create)"><i class="fa fa-plus" aria-hidden="true"></i> Cadastrar novo</button>
+  </div>
+  <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtTrigger]="dtTrigger" [dtOptions]="dtOptions">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nome</th>
+          <th>Idade</th>
+          <th>Contato</th>
+          <th>Email</th>
+          <th>Linguagens</th>
+          <th>Frameworks</th>
+          <th>Redes Sociais</th>
+          <th>Foto</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let lideres of results">
+              <td>{{lideres.id}}</td>
+              <td>{{lideres.nome}}</td>
+              <td>{{lideres.idade}}</td>
+              <td>{{lideres.contato}}</td>
+              <td>{{lideres.email}}</td>
+              <td>
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Visualisar
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                    <a class="dropdown-item" *ngFor="let linguagens of lideres.linguagens">{{linguagens}}</a>
+                  </div>
+                </div>
+            </td>
+            <td>
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Visualisar
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                  <a class="dropdown-item" *ngFor="let frameworks of lideres.frameworks">{{frameworks}}</a>
+                </div>
+              </div>
+              </td>
+              <td *ngFor="let social of lideres.social">
+                <a class="btn p-1" href="{{social.facebook}}" target="blank" [hidden]="!social.facebook"><i class="fa fa-facebook-square fa-3x" aria-hidden="true"></i></a>
+                <a class="btn p-1" href="{{social.instagram}}" target="blank" [hidden]="!social.instagram"><i class="fa fa-instagram fa-3x" aria-hidden="true"></i></a>
+                <a class="btn p-1" href="{{social.twitter}}" target="blank" [hidden]="!social.twitter"><i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i></a>
+                <a class="btn p-1" href="{{social.github}}" target="blank" [hidden]="!social.github"><i class="fa fa-github fa-3x" aria-hidden="true"></i></a>
+                <a class="btn p-1" href="{{social.gitlab}}" target="blank" [hidden]="!social.gitlab"><i class="fa fa-gitlab fa-3x" aria-hidden="true"></i></a>     
+            </td>
+            <td>
+              <img class="img-fluid rounded-circle" width="80px" height="80px" [src]="lideres.foto" [hidden]="!lideres.foto" alt="{{lideres.nome}}">
+            </td>
+            <td>
+              <button class="btn btn-info m-2" (click)="editModal(edit, lideres)"><i class="fa fa-pencil" aria-hidden="true"></i>Editar</button>
+              <button class="btn btn-danger m-2" (click)="delete(lideres)"><i class="fa fa-trash-o" aria-hidden="true"></i> Deletar</button>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+</div>
+
+<ng-template #edit>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Editar {{LideresModal.nome}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label for="Nome">Nome</label>
+        <input formControlName="nome" type="text" class="form-control" id="Nome" placeholder="Digite seu nome">
+      </div>
+      <div class="form-group">
+        <label for="Idade">Idade</label>
+        <input formControlName="idade"  type="text" class="form-control" id="Idade" placeholder="Digite sua idade">
+      </div>
+      <div class="form-group">
+        <label for="Foto">Foto</label>
+        <input formControlName="foto"  type="text" class="form-control" id="Foto" placeholder="Digite a url da foto">
+      </div>
+      <div class="form-group">
+        <label for="Contato">Contato</label>
+        <input formControlName="contato"  type="text" class="form-control" id="Contato" placeholder="Digite seu Whats">
+      </div>
+      <div class="form-group">
+        <label for="Email">Email</label>
+        <input formControlName="email"  type="email" class="form-control" id="Email" placeholder="name@example.com">
+      </div>
+      <div class="form-group m-3" >
+        <div class="row justify-content-between">
+          <label>Linguagens</label>
+          <button class="btn btn-success" (click)="addLinguagens()"> <i class="fa fa-plus" aria-hidden="true"></i></button>
+        </div>
+        <div formArrayName="linguagens" *ngFor="let comp of linguagens.controls; let i = index">
+          <label for="i+1">Nome {{i+1}}</label>
+          <input formControlName="i+1"  type="text" class="form-control" id="i+1" placeholder="Digite o nome">
+          <button class="btn btn-danger m-2" (click)="deleteLinguagens(i)"><i class="fa fa-trash-o" aria-hidden="true"></i></button> 
+        </div>
+      </div>
+      <div class="form-group m-3" >
+        <div class="row justify-content-between">
+          <label>Framewoks</label>
+          <button class="btn btn-success" (click)="addFrameworks()"> <i class="fa fa-plus" aria-hidden="true"></i></button>
+        </div>
+        <div formArrayName="frameworks" *ngFor="let comp of frameworks.controls; let i = index">
+          <label for="i+1">Nome {{i+1}}</label>
+          <input formControlName="i+1"  type="text" class="form-control" id="i+1" placeholder="Digite o nome">
+          <button class="btn btn-danger m-2" (click)="deleteFrameworks(i)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>  
+        </div>
+      </div>
+      <div class="form-group">
+          <label for="Facebook">Facebook</label>
+          <input formControlName="contato"  type="text" class="form-control" id="Facebook" placeholder="Link Facebook">
+      </div>
+      <div class="form-group">
+        <label for="Instagram">Instagram</label>
+        <input formControlName="contato"  type="text" class="form-control" id="Instagram" placeholder="Link Instagram">
+      </div>
+      <div class="form-group">
+        <label for="Github">Github</label>
+        <input formControlName="contato"  type="text" class="form-control" id="Github" placeholder="Link Github">
+      </div>
+      <div class="form-group">
+        <label for="Twitter">Twitter</label>
+        <input formControlName="contato"  type="text" class="form-control" id="Twitter" placeholder="Link Twitter">
+      </div>
+      <div class="form-group">
+        <label for="Gitlab">Gitlab</label>
+        <input formControlName="contato"  type="text" class="form-control" id="Gitlab" placeholder="Link Gitlab">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modalRef.hide()">Fechar</button>
+    <button class="btn btn-primary" [disabled]="!form.valid">Salvar Alterações</button>
+  </div>
+</ng-template>
+
+<ng-template #create>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Criar novo regitro</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a modal.
+  </div>
+</ng-template>
