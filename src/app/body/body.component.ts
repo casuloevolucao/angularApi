@@ -83,6 +83,7 @@ export class BodyComponent implements OnInit {
     }
     this.dataS.getData().subscribe((rs)=>{
       this.results = rs
+      this.dtTrigger.next()
     })
   }
 
